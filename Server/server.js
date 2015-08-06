@@ -1,23 +1,34 @@
 
 var http = require('http');
+var qs = require('querystring');
 
-http.createServer(function (req, res) {
+function startServer () {
+    http.createServer(function (req, res) {
 
-    if(req.method == 'POST') {
-        console.log('Got request ' + req.method + ' on ' + req.uri);
-        req.on('data', function(chunk) {
-            console.log('Data');
-            console.log(chunk.toString());
-        });
+        if(req.method == 'POST') {
+            console.log('Got ' + req.method + ' request');
+            var body = '';
+            req.on('data', function(chunk) {
+                body += chunk;
+            });
 
-        req.on('end', function() {
-            res.writeHead(200, "OK", {'Content-Type': 'text/html'});
+            req.on('end', function() {
+                res.writeHead(200, "OK", {'Content-Type': 'text/html'});
+                res.write('Ok');
+                res.end();
+
+                var postData = qs.parse(body);
+                console.log('Data: ');
+                console.log(postData);
+
+            });
+        } else {
+            res.writeHead(405, 'Method not allowed');
+            res.write('Method not allowed');
             res.end();
-        });
-    } else {
-        console.log('Wrong Method');
-        res.writeHead(405, 'Method not allowed');
-        res.end();
-    }
+        }
 
-}).listen(3000);
+    }).listen(3000);
+}
+
+startServer();
