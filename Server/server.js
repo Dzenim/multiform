@@ -12,6 +12,10 @@ function startServer () {
                 body += chunk;
             });
 
+            req.on('error', function(err) {
+                console.error('Error with the request:', err.message);
+            });
+
             req.on('end', function() {
                 res.writeHead(200, "OK", {'Content-Type': 'text/html'});
                 res.write('Ok');
@@ -19,7 +23,9 @@ function startServer () {
 
                 var postData = qs.parse(body);
                 console.log('Data: ');
-                console.log(postData);
+                for(var prop in postData) {
+                    console.log(prop + ': ' + postData[prop]);
+                }
 
             });
         } else {
