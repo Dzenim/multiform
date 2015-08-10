@@ -1,0 +1,25 @@
+{
+  "name": "multiname",
+  "version": "0.1.0",
+  "description": "web form implementation using different methods",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "should": "^7.0.3",
+    "sinon": "^1.15.4",
+    "supertest": "^1.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dzenim/multiform.git"
+  },
+  "author": "buddha&aragh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dzenim/multiform/issues"
+  },
+  "homepage": "https://github.com/Dzenim/multiform#readme"
+}
