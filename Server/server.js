@@ -1,4 +1,3 @@
-
 var http = require('http');
 var qs = require('querystring');
 
@@ -18,15 +17,15 @@ function startServer () {
 
             req.on('end', function() {
                 res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-                res.write('Ok');
-                res.end();
 
                 var postData = qs.parse(body);
                 console.log('Data: ');
                 for(var prop in postData) {
                     console.log(prop + ': ' + postData[prop]);
                 }
-
+                console.log(JSON.stringify(postData));
+                res.write(JSON.stringify(postData));
+                res.end();
             });
         } else {
             res.writeHead(405, 'Method not allowed');
@@ -37,4 +36,9 @@ function startServer () {
     }).listen(3000);
 }
 
-startServer();
+if(module.parent) {
+	exports.run = startServer;
+    console.log('This module is required');
+} else {
+	startServer();
+}
